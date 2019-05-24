@@ -24,8 +24,7 @@ export default class App extends React.Component {
   componentDidMount() {
     axios({
       method: "GET",
-      url:
-        "https://www.anapioficeandfire.com/api/characters?page=2&pageSize=100"
+      url: "https://www.anapioficeandfire.com/api/characters?page=1&pageSize=50"
     }).then(response => {
       this.setState(state => {
         return {
@@ -46,8 +45,14 @@ export default class App extends React.Component {
         return (
           <Card
             addicionalClass="--cardIn"
-            characterName={character.name}
-            characterCulture={character.culture}
+            characterName={
+              character.name ? character.name : (character.name = "Unknown")
+            }
+            characterCulture={
+              character.culture
+                ? character.culture
+                : (character.culture = "Unknown")
+            }
             characterGender={character.gender}
             characterSeasonAppearence={character.tvSeries.length}
             isCharacterAlive={Boolean(character.died)}
@@ -80,6 +85,7 @@ export default class App extends React.Component {
                 actualCharacter: Math.floor(
                   Math.random() * state.characters.length
                 ),
+
                 statusCard: IS_ENTERING
               }));
             }}
